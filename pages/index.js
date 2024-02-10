@@ -1,34 +1,24 @@
-import { Fragment } from 'react';
-import Head from 'next/head';
-
-import FeaturedPosts from '../components/home-page/featured-posts';
-import Hero from '../components/home-page/hero';
-import { getFeaturedPosts } from '../lib/posts-util';
-
 function HomePage(props) {
-  return (
-    <Fragment>
-      <Head>
-        <title>Max' Blog</title>
-        <meta
-          name='description'
-          content='I post about programming and web development.'
-        />
-      </Head>
-      <Hero />
-      <FeaturedPosts posts={props.posts} />
-    </Fragment>
-  );
+	const { products } = props;
+
+	return (
+		<ul>
+			{products.map((product) => (
+				<li key={product.id}>{product.title}</li>
+			))}
+		</ul>
+	);
 }
 
-export function getStaticProps() {
-  const featuredPosts = getFeaturedPosts();
-
-  return {
-    props: {
-      posts: featuredPosts,
-    },
-  };
+// getStaticProps func 의 목적은 to prepare props for component
+// 1. next executes this func
+// 2. and then executes component func
+export async function getStaticProps() {
+	return {
+		props: {
+			products: [{ id: 'p1', title: 'Product 1' }],
+		},
+	};
 }
 
 export default HomePage;
