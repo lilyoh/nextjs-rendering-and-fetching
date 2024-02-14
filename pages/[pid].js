@@ -32,4 +32,13 @@ export async function getStaticProps(context) {
 	};
 }
 
+// pid 는 아래 값으로 3번 pre generate 되어야 한다는 걸 말해주는 getStaticPaths
+// 그 다음으로 아래 3개의 id에 대해서 getStaticsProps를 호출한다 (Next가)
+export async function getStaticPaths() {
+	return {
+		paths: [{ params: { pid: 'p1' } }, { params: { pid: 'p2' } }, { params: { pid: 'p3' } }],
+		fallback: false,
+	};
+}
+
 export default ProductDetailPage;
